@@ -7,20 +7,24 @@ jobs:
 verify:
 runs-on: ubuntu-latest
 steps:
-- uses: actions/checkout@v3
+- name: Checkout
+uses: actions/checkout@v3
 
-
-  - uses: actions/setup-node@v3
+  - name: Setup Node
+    uses: actions/setup-node@v3
     with:
       node-version: 20
 
-  - run: npx clawhub@latest install verified-agent-identity
+  - name: Install ClawHub
+    run: npx clawhub@latest install verified-agent-identity
 
-  - run: |
+  - name: Install dependencies
+    run: |
       cd scripts
       npm install
 
-  - run: node scripts/createNewEthereumIdentity.js
+  - name: Create Ethereum Identity
+    run: node scripts/createNewEthereumIdentity.js
 
-  - run: node scripts/manualLinkHumanToAgent.js --challenge '{"name":"dansleonardo15","description":"dansleonardo15 AI Agent"}'
-
+  - name: Link Human to Agent
+    run: node scripts/manualLinkHumanToAgent.js --challenge "{\"name\":\"dansleonardo15\",\"description\":\"dansleonardo15 AI Agent\"}"
